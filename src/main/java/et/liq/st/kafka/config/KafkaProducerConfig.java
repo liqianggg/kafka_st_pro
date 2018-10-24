@@ -1,11 +1,9 @@
 package et.liq.st.kafka.config;
 
 import org.apache.kafka.clients.producer.*;
-import org.springframework.context.annotation.Configuration;
 
 import java.util.Properties;
 
-@Configuration
 public class KafkaProducerConfig<K,V> {
 
     private Producer<K,V> kafkaProducer;
@@ -22,12 +20,19 @@ public class KafkaProducerConfig<K,V> {
         props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         this.kafkaProducer = new KafkaProducer<K, V>(props);
     }
+
+    /**
+     *
+     * @param topicName 消息发布主题名称
+     * @param k key
+     * @param v 消息内容
+     */
     public void sendMessage(String topicName,K k,V v){
         ProducerRecord<K,V> producerRecord = new ProducerRecord(topicName,k,v);
         kafkaProducer.send(producerRecord, (metadata, exception) -> {
             if (exception!=null)
                 exception.printStackTrace();
-            System.out.println("the offset of the record we just snt is:"+metadata.offset());
+            System.out.println("the offset of the record we just snt is:"+metadata.offset());//消息偏移量
         });
         kafkaProducer.close();
     }
