@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Properties;
 
-@Configuration
 public class KafkaConsumerConfig<K,V> {
 
     private KafkaConsumer<K,V> kafkaConsumer;
@@ -29,6 +28,11 @@ public class KafkaConsumerConfig<K,V> {
         props.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
         this.kafkaConsumer = new KafkaConsumer<K, V>(props);
     }
+
+    /**
+     *
+     * @param topic 消息主题
+     */
     public void getMessage(String...topic){
        kafkaConsumer.subscribe(Arrays.asList(topic));
            ConsumerRecords<K,V> records = kafkaConsumer.poll(Duration.ofSeconds(1));
