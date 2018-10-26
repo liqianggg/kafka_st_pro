@@ -54,6 +54,11 @@
 			<artifactId>kafka-clients</artifactId>
 			<version>2.0.0</version>
 		</dependency>
+		<!--lombok工具插件-->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
